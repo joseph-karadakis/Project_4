@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Handle the Stock Summary tab
     const tickerSelector = document.getElementById("tickerSelector");
     const newsContent = document.getElementById("news-content");
-    const stockChartContent = document.getElementById("stock-chart-content"); // Add this line
+    const stockDataContent = document.getElementById("stock-data-content"); // Updated variable name
 
     // Listen for changes in the tickerSelector
     tickerSelector.addEventListener("change", function () {
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Replace 'YOUR_API_KEY' with your actual Alpha Vantage API key
         const apiKey = '7IWYGE8ECV7Q03TY';
 
-        // Define the API URL
+        // Define the API URL for news sentiment
         const apiUrl = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=${selectedTicker}&apikey=${apiKey}`;
 
         // Clear previous news content
@@ -63,82 +63,51 @@ document.addEventListener("DOMContentLoaded", function () {
                 newsContent.innerHTML = '<div class="text-center text-danger">Error fetching news. Please try again later.</div>';
             });
     }
+
     // Function to fetch and display stock data
     function fetchStockData(selectedTicker) {
         // Replace 'YOUR_API_KEY' with your actual Alpha Vantage API key
         const apiKey = '7IWYGE8ECV7Q03TY';
 
-        // Define the API URL for stock data
-        const stockApiUrl = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${selectedTicker}&apikey=${apiKey}`;
+        // Define the API URL for global quote data
+        const stockApiUrl = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${selectedTicker}&apikey=${apiKey}`;
 
-        // Clear previous stock chart
-        stockChartContent.innerHTML = '<div class="text-center">Loading stock data...</div>';
+        // Clear previous stock data content
+        stockDataContent.innerHTML = '<div class="text-center">Loading stock data...</div>';
 
         // Fetch stock data from the API
         fetch(stockApiUrl)
             .then((response) => response.json())
             .then((data) => {
                 // Clear the loading message
-                stockChartContent.innerHTML = '';
+                stockDataContent.innerHTML = '';
 
-                if (data["Time Series (Daily)"]) {
-                    // Extract date labels and closing prices
-                    const dates = Object.keys(data["Time Series (Daily)"]).reverse();
-                    const closingPrices = dates.map((date) => parseFloat(data["Time Series (Daily)"][date]["4. close"]));
+                if (data["Global Quote"]) {
+                    // Extract and display global quote data
+                    const globalQuoteData = data["Global Quote"];
+                    const stockDataList = document.createElement('ul');
+                    stockDataList.classList.add('list-group');
 
-                    // Create a line chart
-                    const ctx = document.createElement("canvas");
-                    stockChartContent.appendChild(ctx);
+                    for (const key in globalQuoteData) {
+                        if (globalQuoteData.hasOwnProperty(key)) {
+                            const listItem = document.createElement('li');
+                            listItem.classList.add('list-group-item');
+                            listItem.innerHTML = `<strong>${key}:</strong> ${globalQuoteData[key]}`;
+                            stockDataList.appendChild(listItem);
+                        }
+                    }
 
-                    new Chart(ctx, {
-                        type: "line",
-                        data: {
-                            labels: dates,
-                            datasets: [
-                                {
-                                    label: `${selectedTicker} Closing Prices`,
-                                    data: closingPrices,
-                                    borderColor: "blue",
-                                    borderWidth: 2,
-                                    fill: false,
-                                },
-                            ],
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            scales: {
-                                x: {
-                                    type: "time",
-                                    time: {
-                                        unit: "day",
-                                        displayFormats: {
-                                            day: "MMM D",
-                                        },
-                                    },
-                                    title: {
-                                        display: true,
-                                        text: "Date",
-                                    },
-                                },
-                                y: {
-                                    title: {
-                                        display: true,
-                                        text: "Closing Price",
-                                    },
-                                },
-                            },
-                        },
-                    });
+                    // Append the stock data list to the stockDataContent div
+                    stockDataContent.appendChild(stockDataList);
                 } else {
                     // If no stock data is found
-                    stockChartContent.innerHTML = '<div class="text-center">No stock data available.</div>';
+                    stockDataContent.innerHTML = '<div class="text-center">No stock data available.</div>';
                 }
             })
             .catch((error) => {
                 console.error('Error fetching stock data:', error);
                 // Display an error message if the API request fails
-                stockChartContent.innerHTML = '<div class="text-center text-danger">Error fetching stock data. Please try again later.</div>';
+                stockDataContent.innerHTML = '<div class="text-center text-danger">Error fetching stock data. Please try again later.</div>';
             });
     }
 });
