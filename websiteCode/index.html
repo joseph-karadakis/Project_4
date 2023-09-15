@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Stock Info Dashboard</title>
     <!-- Link to Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -29,26 +31,28 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header bg-primary text-white">
-                            <h2>News Feed & Latest Trading Info</h2>
+                            <h2>Intraday Info, Daily Stock Summary & News Sentiment</h2>
                         </div>
                         <div class="card-body">
-                            <label for="tickerSelector">Customize your News Feed, Select a Ticker:</label>
-                                <select id="tickerSelector" class="form-control">
-                                    <option value="">Select Ticker</option>
-                                    <option value="AAPL">Apple Inc. (AAPL)</option>
-                                    <option value="SBUX">Starbucks Corporation (SBUX)</option>
-                                    <option value="MSFT">Microsoft Corporation (MSFT)</option>
-                                    <option value="CSCO">Cisco Systems, Inc. (CSCO)</option>
-                                    <option value="QCOM">QUALCOMM Incorporated (QCOM)</option>
-                                    <option value="META">Meta Platforms, Inc. (META)</option>
-                                    <option value="AMZN">Amazon.com, Inc. (AMZN)</option>
-                                    <option value="TSLA">Tesla, Inc. (TSLA)</option>
-                                    <option value="AMD">Advanced Micro Devices, Inc. (AMD)</option>
-                                    <option value="NFLX">Netflix, Inc. (NFLX)</option>
-                                </select>
-                                <div id="stock-data-content">
-                                    <!-- Placeholder for stock data -->
-                                </div>
+                            <!-- <label for="tickerSelector">Customize your News Feed, Select a Ticker:</label> -->
+                            <select id="tickerSelector" class="form-control">
+                                <option value="">Select Ticker</option>
+                                <option value="AAPL">Apple Inc. (AAPL)</option>
+                                <option value="SBUX">Starbucks Corporation (SBUX)</option>
+                                <option value="MSFT">Microsoft Corporation (MSFT)</option>
+                                <option value="CSCO">Cisco Systems, Inc. (CSCO)</option>
+                                <option value="QCOM">QUALCOMM Incorporated (QCOM)</option>
+                                <option value="META">Meta Platforms, Inc. (META)</option>
+                                <option value="AMZN">Amazon.com, Inc. (AMZN)</option>
+                                <option value="TSLA">Tesla, Inc. (TSLA)</option>
+                                <option value="AMD">Advanced Micro Devices, Inc. (AMD)</option>
+                                <option value="NFLX">Netflix, Inc. (NFLX)</option>
+                            </select>
+                            <div id="candlestickChartContainer"></div>
+                            <div id="stock-data-content" style='text-align: center'>
+                                
+                                <!-- Placeholder for stock data -->
+                            </div>
                             <div id="news-content">
                                 <!-- News content will be displayed here -->
                             </div>
@@ -57,38 +61,23 @@
                 </div>
             </div>
         </div>
-
-        <div id="stock-predictions" class="tab-pane fade">
-            <!-- Content for Predictions tab -->
-            <div class="row mt-4">
-                <div class="col-lg-6">
-                    <div class="card">
-                        <div class="card-header bg-primary text-white">
-                            <h2>Stock Predictions</h2>
-                        </div>
-                        <div class="card-body">
-                            <!-- Place your stock predictions content here -->
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div id="tableau-embed" class="tab-pane fade active">
+            <div class='tableauPlaceholder' id='viz1694742648407' style='position: relative'><noscript><a href='#'><img alt='Volume by Company 2013-2023 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;FinalProjectAB&#47;AppleAverageClose&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='FinalProjectAB&#47;AppleAverageClose' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;FinalProjectAB&#47;AppleAverageClose&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1694742648407');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
         </div>
-
-        <div id="tableau-embed" class="tab-pane fade">
-            <div class='tableauPlaceholder' id='viz1694491041979' style='position: center'><noscript><a href='#'><img alt='Historical Stock Prices ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Hi&#47;HistoricalStockPrices_16944907236460&#47;Story1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='HistoricalStockPrices_16944907236460&#47;Story1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Hi&#47;HistoricalStockPrices_16944907236460&#47;Story1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1694491041979');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='1366px';vizElement.style.height='795px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
-        </div>
-    </div>
 
     <footer class="bg-dark text-white text-center py-2 mt-4">
         <p>&copy; 2023 Stock Info Dashboard</p>
     </footer>
 
     <!-- Link to Bootstrap JS and jQuery (required for Bootstrap functionality) -->
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    
+    <script src="https://code.highcharts.com/stock/9.3.2/highstock.js"></script>
+
     <!-- Link to your custom script.js file -->
     <script src="script.js"></script>
+
 </body>
 </html>

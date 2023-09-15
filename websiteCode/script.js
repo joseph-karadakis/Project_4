@@ -1,46 +1,31 @@
+
 document.addEventListener("DOMContentLoaded", function () {
-    // Handle the Stock Summary tab
     const tickerSelector = document.getElementById("tickerSelector");
     const newsContent = document.getElementById("news-content");
-    const stockDataContent = document.getElementById("stock-data-content"); // Updated variable name
+    const stockDataContent = document.getElementById("stock-data-content");
 
-    // Listen for changes in the tickerSelector
-    tickerSelector.addEventListener("change", function () {
-        const selectedTicker = this.value;
-        fetchNews(selectedTicker);
-        fetchStockData(selectedTicker); // Call the function to fetch stock data
-    });
-
-    // Fetch and display news for the default ticker (AAPL)
-    fetchNews(tickerSelector.value);
-
-    // Function to fetch and display news content
+    // function to fetch news content
     function fetchNews(selectedTicker) {
-        // Replace 'YOUR_API_KEY' with your actual Alpha Vantage API key
-        const apiKey = '7IWYGE8ECV7Q03TY';
-
-        // Define the API URL for news sentiment
+        const apiKey =  'demo';
         const apiUrl = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=${selectedTicker}&apikey=${apiKey}`;
 
-        // Clear previous news content
+        // loading message
         newsContent.innerHTML = '<div class="text-center">Loading news...</div>';
 
-        // Fetch data from the API
         fetch(apiUrl)
             .then((response) => response.json())
             .then((data) => {
-                // Clear the loading message
-                newsContent.innerHTML = '';
+                newsContent.innerHTML = ''; // Clear loading message
 
                 if (data.feed && data.feed.length > 0) {
-                    // Create a list of news articles
                     const newsList = document.createElement('ul');
                     newsList.classList.add('list-group');
 
                     data.feed.forEach((article) => {
                         const listItem = document.createElement('li');
                         listItem.classList.add('list-group-item');
-                        const articleDate = new Date(article.time_published.replace(/(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})/, '$1-$2-$3T$4:$5:$6Z'));
+                        const articleDate = new Date(article.time_published);
+
                         listItem.innerHTML = `
                             <h5>${article.title}</h5>
                             <p>${article.summary}</p>
@@ -50,64 +35,117 @@ document.addEventListener("DOMContentLoaded", function () {
                         newsList.appendChild(listItem);
                     });
 
-                    // Append the news list to the newsContent div
                     newsContent.appendChild(newsList);
                 } else {
-                    // If no news articles are found
                     newsContent.innerHTML = '<div class="text-center">No news articles available.</div>';
                 }
             })
             .catch((error) => {
                 console.error('Error fetching news:', error);
-                // Display an error message if the API request fails
                 newsContent.innerHTML = '<div class="text-center text-danger">Error fetching news. Please try again later.</div>';
             });
     }
 
-    // Function to fetch and display stock data
-    function fetchStockData(selectedTicker) {
-        // Replace 'YOUR_API_KEY' with your actual Alpha Vantage API key
-        const apiKey = '7IWYGE8ECV7Q03TY';
+    //format numbers with commas
+    function formatNumberWithCommas(number) {
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
 
-        // Define the API URL for global quote data
+    // fetch and display stock data
+    function fetchStockData(selectedTicker) {
+        const apiKey =  'demo'; 
         const stockApiUrl = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${selectedTicker}&apikey=${apiKey}`;
 
-        // Clear previous stock data content
         stockDataContent.innerHTML = '<div class="text-center">Loading stock data...</div>';
 
-        // Fetch stock data from the API
         fetch(stockApiUrl)
             .then((response) => response.json())
             .then((data) => {
-                // Clear the loading message
-                stockDataContent.innerHTML = '';
+                if (data && data['Global Quote']) {
+                    const symbol = data['Global Quote']['01. symbol'];
+                    const price = parseFloat(data['Global Quote']['05. price']);
+                    const change = parseFloat(data['Global Quote']['09. change']);
+                    const changePercent = parseFloat(data['Global Quote']['10. change percent']);
+                    const volume = parseInt(data['Global Quote']['06. volume']);
+                    const timestamp = data['Global Quote']['07. latest trading day'];
+                    const formattedVolume = formatNumberWithCommas(volume);
 
-                if (data["Global Quote"]) {
-                    // Extract and display global quote data
-                    const globalQuoteData = data["Global Quote"];
-                    const stockDataList = document.createElement('ul');
-                    stockDataList.classList.add('list-group');
-
-                    for (const key in globalQuoteData) {
-                        if (globalQuoteData.hasOwnProperty(key)) {
-                            const listItem = document.createElement('li');
-                            listItem.classList.add('list-group-item');
-                            listItem.innerHTML = `<strong>${key}:</strong> ${globalQuoteData[key]}`;
-                            stockDataList.appendChild(listItem);
-                        }
-                    }
-
-                    // Append the stock data list to the stockDataContent div
-                    stockDataContent.appendChild(stockDataList);
+                    stockDataContent.innerHTML = `
+                        <h2>${symbol}</h2>
+                        <p>Price: $${price.toFixed(2)}</p>
+                        <p>Change: <span style="color: ${change >= 0 ? 'green' : 'red'};">$${change.toFixed(2)}</span></p>
+                        <p>Change Percent: <span style="color: ${changePercent >= 0 ? 'green' : 'red'};">${changePercent.toFixed(2)}%</span></p>
+                        <p>Volume: ${formattedVolume}</p>
+                        <p>Timestamp: ${timestamp}</p>
+                    `;
                 } else {
-                    // If no stock data is found
-                    stockDataContent.innerHTML = '<div class="text-center">No stock data available.</div>';
+                    stockDataContent.innerHTML = '<div class="text-center text-danger">Stock data not found for this symbol.</div>';
                 }
             })
             .catch((error) => {
                 console.error('Error fetching stock data:', error);
-                // Display an error message if the API request fails
                 stockDataContent.innerHTML = '<div class="text-center text-danger">Error fetching stock data. Please try again later.</div>';
             });
     }
+
+    // Listener for tickerSelector
+    tickerSelector.addEventListener("change", function () {
+        const selectedTicker = this.value;
+        fetchNews(selectedTicker);
+        fetchStockData(selectedTicker);
+    });
+    // Function to fetch and display candlestick chart
+    function fetchCandlestickChart(selectedTicker) {
+        const apiKey = 'demo';
+        const intradayApiUrl = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey=${apiKey}`;
+
+        fetch(intradayApiUrl)
+            .then((response) => response.json())
+            .then((data) => {
+                if (data["Time Series (5min)"]) {
+                    const timeSeriesData = data["Time Series (5min)"];
+                    const seriesData = [];
+
+                    for (const timestamp in timeSeriesData) {
+                        const entry = timeSeriesData[timestamp];
+                        const open = parseFloat(entry["1. open"]);
+                        const high = parseFloat(entry["2. high"]);
+                        const low = parseFloat(entry["3. low"]);
+                        const close = parseFloat(entry["4. close"]);
+                        seriesData.push([Date.parse(timestamp), open, high, low, close]);
+                    }
+
+                    // Create the candlestick chart
+                    Highcharts.stockChart("candlestickChartContainer", {
+                        rangeSelector: {
+                            selected: 1
+                        },
+                        title: {
+                            text: "Intraday Chart"
+                        },
+                        series: [{
+                            type: "candlestick",
+                            name: selectedTicker,
+                            data: seriesData
+                        }]
+                    });
+                } else {
+                    console.error("No intraday data available for the selected symbol.");
+                    // You can display an error message or handle this case as needed.
+                }
+            })
+            .catch((error) => {
+                console.error("Error fetching intraday data:", error);
+                // You can display an error message or handle this case as needed.
+            });
+    }
+
+    // Listener for tickerSelector
+    tickerSelector.addEventListener("change", function () {
+        const selectedTicker = this.value;
+        fetchNews(selectedTicker);
+        fetchStockData(selectedTicker);
+        fetchCandlestickChart(selectedTicker); // Fetch and display the candlestick chart
+    });
+    
 });
