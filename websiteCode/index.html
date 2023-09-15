@@ -6,78 +6,141 @@
     <title>Stock Info Dashboard</title>
     <!-- Link to Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../websiteCode/styles.css">
+
 </head>
-<body>
-    <header class="bg-primary text-white p-4 text-center">
-        <h1>Stock Info Dashboard</h1>
-    </header>
+    <body>
+        <header class="bg-none text-white p-4 text-center mb-4 border: none ">
+            <h1>Investment Decision Dashboard</h1>
+        </header>
+        <div></div>
+        <ul class="nav nav-tabs justify-content-center border: none" >
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#stock-summary">Stock Snapshot</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#tableau-embed">Stock History</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#stock-predictions">Stock Predictions</a>
+            </li>
+        </ul>
 
-    <ul class="nav nav-tabs">
-        <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#stock-summary">Stock Snapshot</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#stock-predictions">Stock Predictions</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#tableau-embed">Stock History</a>
-        </li>
-    </ul>
-
-    <div class="tab-content container mt-4">
-        <div id="stock-summary" class="tab-pane fade show active">
-            <!-- Content for Stock Summary tab -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-header bg-primary text-white">
-                            <h2>Intraday Info, Daily Stock Summary & News Sentiment</h2>
-                        </div>
-                        <div class="card-body">
-                            <!-- <label for="tickerSelector">Customize your News Feed, Select a Ticker:</label> -->
-                            <select id="tickerSelector" class="form-control">
-                                <option value="">Select Ticker</option>
-                                <option value="AAPL">Apple Inc. (AAPL)</option>
-                                <option value="SBUX">Starbucks Corporation (SBUX)</option>
-                                <option value="MSFT">Microsoft Corporation (MSFT)</option>
-                                <option value="CSCO">Cisco Systems, Inc. (CSCO)</option>
-                                <option value="QCOM">QUALCOMM Incorporated (QCOM)</option>
-                                <option value="META">Meta Platforms, Inc. (META)</option>
-                                <option value="AMZN">Amazon.com, Inc. (AMZN)</option>
-                                <option value="TSLA">Tesla, Inc. (TSLA)</option>
-                                <option value="AMD">Advanced Micro Devices, Inc. (AMD)</option>
-                                <option value="NFLX">Netflix, Inc. (NFLX)</option>
-                            </select>
-                            <div id="candlestickChartContainer"></div>
-                            <div id="stock-data-content" style='text-align: center'>
-                                
-                                <!-- Placeholder for stock data -->
+        <div class="tab-content container mt-4 border: none">
+            <div id="stock-summary" class="tab-pane fade show active">
+                <!-- Content for Stock Summary tab -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header custom-box-bg text-white text-center">
+                                <h2>Intraday Info, Daily Stock Summary & News Sentiment</h2>
                             </div>
-                            <div id="news-content">
-                                <!-- News content will be displayed here -->
+                            <div class="card-body ">
+                                <!-- <label for="tickerSelector">Customize your News Feed, Select a Ticker:</label> -->
+                                <select id="tickerSelector" class="form-control">
+                                    <option value="">Select Ticker</option>
+                                    <option value="AAPL">Apple Inc. (AAPL)</option>
+                                    <option value="SBUX">Starbucks Corporation (SBUX)</option>
+                                    <option value="MSFT">Microsoft Corporation (MSFT)</option>
+                                    <option value="CSCO">Cisco Systems, Inc. (CSCO)</option>
+                                    <option value="QCOM">QUALCOMM Incorporated (QCOM)</option>
+                                    <option value="META">Meta Platforms, Inc. (META)</option>
+                                    <option value="AMZN">Amazon.com, Inc. (AMZN)</option>
+                                    <option value="TSLA">Tesla, Inc. (TSLA)</option>
+                                    <option value="AMD">Advanced Micro Devices, Inc. (AMD)</option>
+                                    <option value="NFLX">Netflix, Inc. (NFLX)</option>
+                                </select>
+                                <div class="row mt-4">
+                                    <div id="candlestickChartContainer" class="col-md-6 mt-4"></div>
+                                    <div id="stock-data-content" class='col-md-6 mt-4' style="text-align: center; color: white;"> </div>
+                                </div>
+                                <div id="news-content" class="col-md-12"></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div id="tableau-embed" class="tab-pane fade active">
-            <div class='tableauPlaceholder' id='viz1694742648407' style='position: relative'><noscript><a href='#'><img alt='Volume by Company 2013-2023 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;FinalProjectAB&#47;AppleAverageClose&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='FinalProjectAB&#47;AppleAverageClose' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;FinalProjectAB&#47;AppleAverageClose&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1694742648407');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
-        </div>
+                <div  id="stock-predictions" class="tab-pane fade border: none ">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-header custom-box-bg text-white text-center">
+                                    <h2>ML Model Prediction Accuracy</h2>
+                                </div>
+                                <div class="card-body">
+                                    <select id="predictionsTickerSelector" class="form-control">
+                                        <option value="">Select Ticker</option>
+                                        <option value="AAPL">Apple Inc. (AAPL)</option>
+                                        <option value="SBUX">Starbucks Corporation (SBUX)</option>
+                                        <option value="MSFT">Microsoft Corporation (MSFT)</option>
+                                        <option value="CSCO">Cisco Systems, Inc. (CSCO)</option>
+                                        <option value="QCOM">QUALCOMM Incorporated (QCOM)</option>
+                                        <option value="META">Meta Platforms, Inc. (META)</option>
+                                        <option value="AMZN">Amazon.com, Inc. (AMZN)</option>
+                                        <option value="TSLA">Tesla, Inc. (TSLA)</option>
+                                        <option value="AMD">Advanced Micro Devices, Inc. (AMD)</option>
+                                        <option value="NFLX">Netflix, Inc. (NFLX)</option>
+                                    </select>
+                                    <div id="tickerImage" class="mt-3"></div>
+                                </div>
+                            </div>
+                        </div>
+                    <div id="tickerImage"></div>
+                </div>
+            </div>
+                <div id="tableau-embed" class="tab-pane fade active">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class='tableauPlaceholder' id='viz1694742239576' style='position: relative'><noscript><a href='#'><img alt='Average Company Highs &amp; Lows ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;TM&#47;TMG2BZFQ4&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='path' value='shared&#47;TMG2BZFQ4' /> <param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;TM&#47;TMG2BZFQ4&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /><param name='filter' value='publish=yes' /></object></div>
+                            <script type='text/javascript'>var divElement = document.getElementById('viz1694742239576');var vizElement = divElement.getElementsByTagName('object')[0];vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';var scriptElement = document.createElement('script');scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';vizElement.parentNode.insertBefore(scriptElement, vizElement);</script>
+                        </div>
+                        <div class="col-md-6">
+                            <div class='tableauPlaceholder' id='viz1694742361431' style='position: relative'><noscript><a href='#'><img alt='Average Company Highs &amp; Lows with Predictions ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;FinalProjectAB&#47;CompanyDate-AvgHighLow2&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='FinalProjectAB&#47;CompanyDate-AvgHighLow2' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;FinalProjectAB&#47;CompanyDate-AvgHighLow2&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /><param name='filter' value='publish=yes' /></object></div>
+                            <script type='text/javascript'>var divElement = document.getElementById('viz1694742361431');var vizElement = divElement.getElementsByTagName('object')[0];vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';var scriptElement = document.createElement('script');scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';vizElement.parentNode.insertBefore(scriptElement, vizElement);</script>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class='tableauPlaceholder' id='viz1694742648407' style='position: relative'><noscript><a href='#'><img alt='Volume by Company 2013-2023 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;FinalProjectAB&#47;AppleAverageClose&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='FinalProjectAB&#47;AppleAverageClose' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;FinalProjectAB&#47;AppleAverageClose&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /><param name='filter' value='publish=yes' /></object></div>
+                            <script type='text/javascript'>var divElement = document.getElementById('viz1694742648407');var vizElement = divElement.getElementsByTagName('object')[0];vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';var scriptElement = document.createElement('script');scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';vizElement.parentNode.insertBefore(scriptElement, vizElement);</script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        
 
-    <footer class="bg-dark text-white text-center py-2 mt-4">
-        <p>&copy; 2023 Stock Info Dashboard</p>
-    </footer>
 
-    <!-- Link to Bootstrap JS and jQuery (required for Bootstrap functionality) -->
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://code.highcharts.com/stock/9.3.2/highstock.js"></script>
+        <!-- Link to Bootstrap JS and jQuery (required for Bootstrap functionality) -->
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://code.highcharts.com/stock/9.3.2/highstock.js"></script>
 
-    <!-- Link to your custom script.js file -->
-    <script src="script.js"></script>
+        <!-- Link to your custom script.js file -->
+        <script src="script.js"></script>
+        <script>
+            // Function to embed Tableau visualizations when the tab is clicked
+            function embedTableauVisualizations() {
+                var divElements = document.querySelectorAll('.tableauPlaceholder');
+                divElements.forEach(function (divElement) {
+                    var vizElement = divElement.getElementsByTagName('object')[0];
+                    vizElement.style.width = '100%';
+                    vizElement.style.height = (divElement.offsetWidth * 0.75) + 'px';
+                    var scriptElement = document.createElement('script');
+                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+                    vizElement.parentNode.insertBefore(scriptElement, vizElement);
+                });
+            }
 
-</body>
+            // Add an event listener to detect when the "Stock History" tab is clicked
+            document.querySelector('a[data-toggle="tab"][href="#tableau-embed"]').addEventListener('click', function () {
+                embedTableauVisualizations();
+            });
+        </script>
+    <!-- <footer class="custom-header-bg text-white text-center py-2 mt-4">
+        <p>&copy; 2023 Joseph Karadakis, Charlotte Van Dyck, Mike Monary, Alex Nguyen, Emily Medill, Alison Barker</p>
+    </footer> -->
+    </body>
 </html>

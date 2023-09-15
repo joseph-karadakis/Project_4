@@ -1,0 +1,37 @@
+.custom-header-bg {
+    background-color: #20124d;
+
+}
+.custom-box-bg {
+    background-color: #9828d8
+    ;
+}
+
+/* Style the active tab button */
+.nav-tabs .nav-item .nav-link.active {
+    background: linear-gradient(to bottom, #20124d, #9828d8);
+    color: #fff; /* Text color for active tab */
+    font-size: 16px; /* Font size for active tab */
+    /* border: 1px solid #1e446d; Border for active tab */
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); /* Box shadow for 3D effect */
+}
+
+/* Style the inactive tab buttons */
+.nav-tabs .nav-item .nav-link {
+    background: linear-gradient(to top, #20124d, #9828d8);
+    color: #ffffff; /* Text color for inactive tab */
+    font-size: 14px; /* Font size for inactive tab */
+    /* border: 1px solid #ccc; Border for inactive tab */
+    box-shadow: 0px 0px 3px rgba(34, 0, 118, 0.459); /* Box shadow for 3D effect */
+}
+
+body {
+    font-family: 'Helvetica', sans-serif;
+}
+body {
+    background: linear-gradient(to bottom, #20124d, #9828d8);
+    /* Adjust the gradient colors and direction as needed */
+}
+.card-body {
+    background:linear-gradient(to bottom, #20124d, #9828d8)
+}
