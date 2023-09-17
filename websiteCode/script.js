@@ -134,6 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 // You can display an error message or handle this case as needed.
             });
     }
+   
     // Create a map to store ticker symbols and their corresponding thumbnail URLs
     const tickerThumbnailUrls = new Map();
 
