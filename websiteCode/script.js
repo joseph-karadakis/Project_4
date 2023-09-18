@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const candlestickChartContainer = document.getElementById("candlestickChartContainer");
     const tickerImage = document.getElementById("tickerImage");
 
-    let jsonData = null; // Declare jsonData at a higher scope
+    let jsonData = null; 
 
     // Function to load and parse the JSON file for the selected ticker symbol
     function loadJSONFile(predictionsSelectedTicker) {
@@ -15,21 +15,20 @@ document.addEventListener("DOMContentLoaded", function () {
             .then((response) => response.json())
             .then((data) => {
                 if (data && data.ticker && data.intercept !== undefined && data.coef !== undefined) {
-                    jsonData = data; // Store the entire JSON object
+                    jsonData = data; 
                 } else {
                     throw new Error("JSON data is missing required fields.");
                 }
             })
             .catch((error) => {
                 console.error("Error loading JSON file:", error);
-                // Handle errors, such as missing JSON file or missing fields in JSON data
             });
     }
 
     // Function to fetch news content
     function fetchNews(selectedTicker) {
-        const apiKey = 'your_api_key'; // Replace with your actual API key
-        const apiUrl = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=${selectedTicker}&apikey=${apiKey}`;
+        const apiKey = 'your_api_key';
+        const apiUrl = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&limit=5&tickers=${selectedTicker}&apikey=${apiKey}`;
 
         // Loading message
         newsContent.innerHTML = '<div class="text-center">Loading news...</div>';
@@ -37,8 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
         fetch(apiUrl)
             .then((response) => response.json())
             .then((data) => {
-                newsContent.innerHTML = ''; // Clear loading message
-
+                newsContent.innerHTML = '';
                 if (data.feed && data.feed.length > 0) {
                     const newsList = document.createElement('ul');
                     newsList.classList.add('list-group');
