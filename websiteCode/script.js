@@ -5,12 +5,33 @@ document.addEventListener("DOMContentLoaded", function () {
     const candlestickChartContainer = document.getElementById("candlestickChartContainer");
     const tickerImage = document.getElementById("tickerImage");
 
-    // function to fetch news content
+    let jsonData = null; // Declare jsonData at a higher scope
+
+    // Function to load and parse the JSON file for the selected ticker symbol
+    function loadJSONFile(predictionsSelectedTicker) {
+        const jsonFileName = `../machineLearning/josephsLNRexperiment/${predictionsSelectedTicker}_model_info.json`;
+
+        fetch(jsonFileName)
+            .then((response) => response.json())
+            .then((data) => {
+                if (data && data.ticker && data.intercept !== undefined && data.coef !== undefined) {
+                    jsonData = data; // Store the entire JSON object
+                } else {
+                    throw new Error("JSON data is missing required fields.");
+                }
+            })
+            .catch((error) => {
+                console.error("Error loading JSON file:", error);
+                // Handle errors, such as missing JSON file or missing fields in JSON data
+            });
+    }
+
+    // Function to fetch news content
     function fetchNews(selectedTicker) {
         const apiKey = 'your_api_key'; // Replace with your actual API key
         const apiUrl = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=${selectedTicker}&apikey=${apiKey}`;
 
-        // loading message
+        // Loading message
         newsContent.innerHTML = '<div class="text-center">Loading news...</div>';
 
         fetch(apiUrl)
@@ -21,20 +42,46 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (data.feed && data.feed.length > 0) {
                     const newsList = document.createElement('ul');
                     newsList.classList.add('list-group');
-
                     data.feed.forEach((article) => {
                         const listItem = document.createElement('li');
                         listItem.classList.add('list-group-item');
-                        const articleDate = new Date(article.time_published);
-
+                    
+                        // Parse the date string
+                        const dateString = article.time_published;
+                        const year = dateString.slice(0, 4);
+                        const month = dateString.slice(4, 6);
+                        const day = dateString.slice(6, 8);
+                        const hours = dateString.slice(9, 11);
+                        const minutes = dateString.slice(11, 13);
+                        const seconds = dateString.slice(13, 15);
+                        const articleDate = new Date(year, month - 1, day, hours, minutes, seconds);
+                        const formattedDate = articleDate.toLocaleString();
+                    
                         listItem.innerHTML = `
-                            <h5>${article.title}</h5>
-                            <p>${article.summary}</p>
-                            <small>${articleDate.toLocaleString()}</small>
-                            <a href="${article.url}" target="_blank" class="btn custom-box-bg btn-sm text-white float-right">Read More</a>
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <h5>${article.title}</h5>
+                                    <p>${article.summary}</p>
+                                    <a href="${article.url}" target="_blank" class="btn custom-box-bg btn-sm text-white ">Read More</a>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="info">
+                                        <small>Author: ${article.authors.join(', ')}</small><br>
+                                        <small>Source: ${article.source}</small><br>
+                                        <small>Category: ${article.category_within_source}</small><br>
+                                        <small>Source Domain: ${article.source_domain}</small><br>
+                                        <small>Date: ${formattedDate}</small><br>
+                                        <small>Overall Sentiment: ${article.overall_sentiment_label}</small><br>
+                                        <small>Ticker Sentiment (${article.ticker_sentiment[0].ticker}): ${article.ticker_sentiment[0].ticker_sentiment_label}</small><br>
+                                    </div>
+                                </div>
+                            </div>
                         `;
                         newsList.appendChild(listItem);
                     });
+                    
+                    
+                    
 
                     newsContent.appendChild(newsList);
                 } else {
@@ -46,6 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 newsContent.innerHTML = '<div class="text-center text-danger">Error fetching news. Please try again later.</div>';
             });
     }
+
 
     //format numbers with commas
     function formatNumberWithCommas(number) {
@@ -136,25 +184,25 @@ document.addEventListener("DOMContentLoaded", function () {
     }
    
     // Create a map to store ticker symbols and their corresponding thumbnail URLs
-    const tickerThumbnailUrls = new Map();
+    const tickerThumbnailPaths = new Map();
 
     // Add entries for each ticker symbol and its thumbnail URL
-    tickerThumbnailUrls.set("AAPL", "https://mdc.mo.gov/sites/default/files/styles/carousel/public/mdcd7/media/images/2014/03/pa2-04-2014.jpg?h=ed80be45&itok=ROS0jacl");
-    tickerThumbnailUrls.set("SBUX", "https://example.com/thumbnails/SBUX.png");
-    tickerThumbnailUrls.set("MSFT", "https://example.com/thumbnails/MSFT.png");
-    tickerThumbnailUrls.set("CSCO", "https://example.com/thumbnails/CSCO.png");
-    tickerThumbnailUrls.set("QCOM", "https://example.com/thumbnails/QCOM.png");
-    tickerThumbnailUrls.set("META", "https://example.com/thumbnails/META.png");
-    tickerThumbnailUrls.set("AMZN", "https://example.com/thumbnails/AMZN.png");
-    tickerThumbnailUrls.set("TSLA", "https://example.com/thumbnails/TSLA.png");
-    tickerThumbnailUrls.set("AMD", "https://example.com/thumbnails/AMD.png");
-    tickerThumbnailUrls.set("NFLX", "https://example.com/thumbnails/NFLX.png");
+    tickerThumbnailPaths.set("AAPL", "../machineLearning/Apple_plot.png");
+    tickerThumbnailPaths.set("SBUX", "../machineLearning/SBUX_plot.png");
+    tickerThumbnailPaths.set("MSFT", "../machineLearning/MSFT_output.png");
+    tickerThumbnailPaths.set("CSCO", "../machineLearning/CSCO_output.png");
+    tickerThumbnailPaths.set("QCOM", "../machineLearning/QCOM_ouput.png");
+    tickerThumbnailPaths.set("META", "../machineLearning/META-ouptut.png");
+    tickerThumbnailPaths.set("AMZN", "../machineLearning/AMZN_plot.png");
+    tickerThumbnailPaths.set("TSLA", "../machineLearning/TSLA_plot.png");
+    tickerThumbnailPaths.set("AMD", "../machineLearning/AMD_plot.png");
+    tickerThumbnailPaths.set("NFLX", "../machineLearning/NFLX_plot.png");
 
     // Function to get the thumbnail URL for a selected ticker
-    function getTickerThumbnailUrl(predictionsSelectedTicker) {
+    function getTickerThumbnailPath(predictionsSelectedTicker) {
         // Check if the selectedTicker exists in the map
-        if (tickerThumbnailUrls.has(predictionsSelectedTicker)) {
-            return tickerThumbnailUrls.get(predictionsSelectedTicker);
+        if (tickerThumbnailPaths.has(predictionsSelectedTicker)) {
+            return tickerThumbnailPaths.get(predictionsSelectedTicker);
         } else {
             // Return a default URL or handle the case when the ticker is not found
             return "https://example.com/default-thumbnail.png"; // Replace with a default image URL
@@ -170,13 +218,238 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Listener for predictionsTickerSelector
     const predictionsTickerSelector = document.getElementById("predictionsTickerSelector");
+    const tickerText = document.getElementById("tickerText"); // Add this line
+
+
     predictionsTickerSelector.addEventListener("change", function () {
         const predictionsSelectedTicker = this.value;
-        getTickerThumbnailUrl(predictionsSelectedTicker);
+        const thumbnailPath = getTickerThumbnailPath(predictionsSelectedTicker);
         
         // Display the ticker thumbnail based on the selected ticker
-        const thumbnailUrl = getTickerThumbnailUrl(predictionsSelectedTicker);
-        tickerImage.innerHTML = `<img src="${thumbnailUrl}" alt="${predictionsSelectedTicker} Thumbnail" class="img-thumbnail">`;
-    });
+        tickerImage.innerHTML = `<img src="${thumbnailPath}" alt="${predictionsSelectedTicker} Thumbnail" class="img-thumbnail">`;
 
+        // Define text based on the selected ticker
+        let text = "";
+        switch(predictionsSelectedTicker) {
+            case "AAPL":
+                text = `
+                <pre style="color: white;">
+
+
+                The training and validation 
+                accuracy scores of our 3 models is:
+
+                LogisticRegression:
+                Training Accuracy: 0.5321559725277262
+                Validation Accuracy: 0.5278904665314402
+                
+                SVC:
+                Training Accuracy: 0.533309388603404
+                Validation Accuracy: 0.4947388438133874
+                
+                XGBClassifier:
+                Training Accuracy: 0.9617975919113765
+                Validation Accuracy: 0.5347996957403651`;
+                break;
+            case "AMD":
+                text = `<pre style="color: white;">
+
+
+                The training and validation 
+                accuracy scores of our 3 models is:
+
+                LogisticRegression:
+                Training Accuracy :  0.5123858688017979
+                Validation Accuracy :  0.5599015834963094
+                
+                SVC:
+                Training Accuracy :  0.4842666729097408
+                Validation Accuracy :  0.43249637246861394
+
+                
+                XGBClassifier:
+                Training Accuracy :  0.9235586302695447
+                Validation Accuracy :  0.5212920320484512`;
+                break;
+            case "AMZN":
+                text = `<pre style="color: white;">
+
+
+                The training and validation 
+                accuracy scores of our 3 models is:
+
+                LogisticRegression:
+                Training Accuracy :  0.5209906930717874
+                Validation Accuracy :  0.5328575102880659              
+                
+                SVC:
+                Training Accuracy :  0.4836377187378653
+                Validation Accuracy :  0.5009002057613169                
+              
+                XGBClassifier:
+                Training Accuracy :  0.9645560889607054
+                Validation Accuracy :  0.5176826131687242`;
+                break;
+            case "CSCO":
+                text = `<pre style="color: white;">
+
+
+                The training and validation 
+                accuracy scores of our 3 models is:
+
+                LogisticRegression:
+                Training Accuracy :  0.517419898371889
+                Validation Accuracy :  0.5168610547667343                              
+                
+                SVC:
+                Training Accuracy :  0.4971664995768098
+                Validation Accuracy :  0.4851990365111562                               
+                
+                XGBClassifier:
+                Training Accuracy :  0.921490019894624
+                Validation Accuracy :  0.4806668356997971`;
+                break;
+            case "META":
+                text = `<pre style="color: white;">
+
+
+                The training and validation 
+                accuracy scores of our 3 models is:
+
+                LogisticRegression:
+                Training Accuracy :  0.5418181547730888
+                Validation Accuracy :  0.5128383506197824                              
+                
+                SVC:
+                Training Accuracy :  0.5406277792391616
+                Validation Accuracy :  0.5373134328358209                               
+                
+                XGBClassifier:
+                Training Accuracy :  0.9477961024889456
+                Validation Accuracy :  0.5576460915760182`;
+                break;
+            case "MSFT":
+                text = `<pre style="color: white;">
+
+
+                The training and validation 
+                accuracy scores of our 3 models is:
+
+                LogisticRegression:
+                Training Accuracy :  0.5400376351657981
+                Validation Accuracy :  0.4927104462474645                              
+                
+                SVC:
+                Training Accuracy :  0.45707595887517016
+                Validation Accuracy :  0.5067190669371197                               
+                
+                XGBClassifier:
+                Training Accuracy :  0.9321757194497912
+                Validation Accuracy :  0.5402827079107505`;
+                break;
+            case "NFLX":
+                text = `<pre style="color: white;">
+
+
+                The training and validation 
+                accuracy scores of our 3 models is:
+
+                LogisticRegression:
+                Training Accuracy :  0.5336983575472309
+                Validation Accuracy :  0.518733809313199                              
+                
+                SVC:
+                Training Accuracy :  0.5318466835824229
+                Validation Accuracy :  0.49804132179187466                               
+                
+                XGBClassifier:
+                Training Accuracy :  0.9326997343929501
+                Validation Accuracy :  0.5071081064004549`;
+                break;
+            case "QCOM":
+                text = `<pre style="color: white;">
+
+
+                The training and validation 
+                accuracy scores of our 3 models is:
+
+                LogisticRegression:
+                Training Accuracy :  0.5203775954218742
+                Validation Accuracy :  0.5455350366810018                              
+                
+                SVC:
+                Training Accuracy :  0.5278050235684767
+                Validation Accuracy :  0.5439855805717176                               
+                
+                XGBClassifier:
+                Training Accuracy :  0.9408699095057961
+                Validation Accuracy :  0.47514545914495315`;
+                break;
+            case "SBUX":
+                text = `<pre style="color: white;">
+
+
+                The training and validation 
+                accuracy scores of our 3 models is:
+
+                LogisticRegression:
+                Training Accuracy :  0.5178261348430986
+                Validation Accuracy :  0.4579107505070994                              
+                
+                SVC:
+                Training Accuracy :  0.5282666991616147
+                Validation Accuracy :  0.42450557809330625                               
+                
+                XGBClassifier:
+                Training Accuracy :  0.9417317151474108
+                Validation Accuracy :  0.4757543103448276`;
+                break;
+            case "TSLA":
+                text = `<pre style="color: white;">
+
+
+                The training and validation 
+                accuracy scores of our 3 models is:
+
+                LogisticRegression:
+                Training Accuracy :  0.5140954819427772
+                Validation Accuracy :  0.4810383032605255                              
+                
+                SVC:
+                Training Accuracy :  0.4942828693977592
+                Validation Accuracy :  0.5406141183918962                               
+                
+                XGBClassifier:
+                Training Accuracy :  0.9371096094687875
+                Validation Accuracy :  0.40443178220956`;
+                break;
+            default:
+                text = "No information available for this ticker.";
+        }
+
+        // Display the text next to the ticker image
+        tickerText.innerHTML = text;
+
+        // Load and parse the JSON file for the selected ticker symbol
+        loadJSONFile(predictionsSelectedTicker);
+    });
+    // Attach a click event listener to the predictButton
+    const predictButton = document.getElementById("predictButton");
+    predictButton.addEventListener("click", function () {
+        // Check if jsonData is available
+        if (jsonData) {
+            // Parse the opening price input as a float
+            const openingPriceInput = document.getElementById("openingPriceInput");
+            const openingPrice = parseFloat(openingPriceInput.value);
+
+            // Calculate the closing price prediction using Linear Regression formula
+            const predictedClosingPrice = jsonData.intercept + jsonData.coef * openingPrice;
+
+            // Display the prediction result in the "predictionResult" element
+            const predictionResult = document.getElementById("predictionResult");
+            predictionResult.textContent = `${predictedClosingPrice.toFixed(2)}`;
+        } else {
+            console.error("JSON data is not available. Please load the data first.");
+        }
+    });
 });
