@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Function to fetch news content
     function fetchNews(selectedTicker) {
-        const apiKey = 'your_api_key';
+        const apiKey = '7IWYGE8ECV7Q03TY';
         const apiUrl = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&limit=5&tickers=${selectedTicker}&apikey=${apiKey}`;
 
         // Loading message
@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // fetch and display stock data
     function fetchStockData(selectedTicker) {
-        const apiKey = 'your_api_key'; // Replace with your actual API key
+        const apiKey = '7IWYGE8ECV7Q03TY'; // Replace with your actual API key
         const stockApiUrl = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${selectedTicker}&apikey=${apiKey}`;
 
         stockDataContent.innerHTML = '<div class="text-center">Loading stock data...</div>';
@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Function to fetch and display candlestick chart
     function fetchCandlestickChart(selectedTicker) {
-        const apiKey = 'your_api_key'; // Replace with your actual API key
+        const apiKey = '7IWYGE8ECV7Q03TY'; // Replace with your actual API key
         const intradayApiUrl = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${selectedTicker}&interval=5min&apikey=${apiKey}`;
 
         fetch(intradayApiUrl)
@@ -149,11 +149,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     for (const timestamp in timeSeriesData) {
                         const entry = timeSeriesData[timestamp];
+                        const timestampMillis = Date.parse(timestamp);
                         const open = parseFloat(entry["1. open"]);
                         const high = parseFloat(entry["2. high"]);
                         const low = parseFloat(entry["3. low"]);
                         const close = parseFloat(entry["4. close"]);
-                        seriesData.push([Date.parse(timestamp), open, high, low, close]);
+                        seriesData.push([timestampMillis, open, high, low, close]);
                     }
 
                     // Create the candlestick chart
@@ -172,19 +173,17 @@ document.addEventListener("DOMContentLoaded", function () {
                     });
                 } else {
                     console.error("No intraday data available for the selected symbol.");
-                    // You can display an error message or handle this case as needed.
                 }
             })
             .catch((error) => {
                 console.error("Error fetching intraday data:", error);
-                // You can display an error message or handle this case as needed.
             });
     }
    
     // Create a map to store ticker symbols and their corresponding thumbnail URLs
     const tickerThumbnailPaths = new Map();
 
-    // Add entries for each ticker symbol and its thumbnail URL
+    // Add entries for each ticker symbol and its thumbnail path
     tickerThumbnailPaths.set("AAPL", "../machineLearning/Apple_plot.png");
     tickerThumbnailPaths.set("SBUX", "../machineLearning/SBUX_plot.png");
     tickerThumbnailPaths.set("MSFT", "../machineLearning/MSFT_output.png");
@@ -196,14 +195,14 @@ document.addEventListener("DOMContentLoaded", function () {
     tickerThumbnailPaths.set("AMD", "../machineLearning/AMD_plot.png");
     tickerThumbnailPaths.set("NFLX", "../machineLearning/NFLX_plot.png");
 
-    // Function to get the thumbnail URL for a selected ticker
+    // Function to get the thumbnail path for a selected ticker
     function getTickerThumbnailPath(predictionsSelectedTicker) {
         // Check if the selectedTicker exists in the map
         if (tickerThumbnailPaths.has(predictionsSelectedTicker)) {
             return tickerThumbnailPaths.get(predictionsSelectedTicker);
         } else {
             // Return a default URL or handle the case when the ticker is not found
-            return "https://example.com/default-thumbnail.png"; // Replace with a default image URL
+            return "http://make-everything-ok.com/"; // Replace with a default image URL
         }
     }
     // Listener for tickerSelector
