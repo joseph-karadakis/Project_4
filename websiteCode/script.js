@@ -146,8 +146,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (data["Time Series (5min)"]) {
                     const timeSeriesData = data["Time Series (5min)"];
                     const seriesData = [];
-
-                    for (const timestamp in timeSeriesData) {
+            
+                    // Reverse the order of timestamps
+                    const timestamps = Object.keys(timeSeriesData).reverse();
+            
+                    for (const timestamp of timestamps) {
                         const entry = timeSeriesData[timestamp];
                         const timestampMillis = Date.parse(timestamp);
                         const open = parseFloat(entry["1. open"]);
@@ -156,7 +159,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         const close = parseFloat(entry["4. close"]);
                         seriesData.push([timestampMillis, open, high, low, close]);
                     }
-
+            
                     // Create the candlestick chart
                     Highcharts.stockChart("candlestickChartContainer", {
                         rangeSelector: {
@@ -175,9 +178,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.error("No intraday data available for the selected symbol.");
                 }
             })
-            .catch((error) => {
-                console.error("Error fetching intraday data:", error);
-            });
     }
    
     // Create a map to store ticker symbols and their corresponding thumbnail URLs
