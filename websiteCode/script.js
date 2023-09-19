@@ -184,16 +184,16 @@ document.addEventListener("DOMContentLoaded", function () {
     const tickerThumbnailPaths = new Map();
 
     // Add entries for each ticker symbol and its thumbnail path
-    tickerThumbnailPaths.set("AAPL", "../machineLearning/Apple_plot.png");
-    tickerThumbnailPaths.set("SBUX", "../machineLearning/SBUX_plot.png");
-    tickerThumbnailPaths.set("MSFT", "../machineLearning/MSFT_output.png");
-    tickerThumbnailPaths.set("CSCO", "../machineLearning/CSCO_output.png");
-    tickerThumbnailPaths.set("QCOM", "../machineLearning/QCOM_ouput.png");
-    tickerThumbnailPaths.set("META", "../machineLearning/META-ouptut.png");
-    tickerThumbnailPaths.set("AMZN", "../machineLearning/AMZN_plot.png");
-    tickerThumbnailPaths.set("TSLA", "../machineLearning/TSLA_plot.png");
-    tickerThumbnailPaths.set("AMD", "../machineLearning/AMD_plot.png");
-    tickerThumbnailPaths.set("NFLX", "../machineLearning/NFLX_plot.png");
+    tickerThumbnailPaths.set("AAPL", "../machineLearning/aapl_plot.png");
+    tickerThumbnailPaths.set("SBUX", "../machineLearning/sbux_plot.png");
+    tickerThumbnailPaths.set("MSFT", "../machineLearning/msft_plot.png");
+    tickerThumbnailPaths.set("CSCO", "../machineLearning/csco_plot.png");
+    tickerThumbnailPaths.set("QCOM", "../machineLearning/qcom_plot.png");
+    tickerThumbnailPaths.set("META", "../machineLearning/meta_plot.png");
+    tickerThumbnailPaths.set("AMZN", "../machineLearning/amzn_plot.png");
+    tickerThumbnailPaths.set("TSLA", "../machineLearning/tsla_plot.png");
+    tickerThumbnailPaths.set("AMD", "../machineLearning/amd_plot.png");
+    tickerThumbnailPaths.set("NFLX", "../machineLearning/nflx_plot.png");
 
     // Function to get the thumbnail path for a selected ticker
     function getTickerThumbnailPath(predictionsSelectedTicker) {
