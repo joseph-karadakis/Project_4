@@ -21,7 +21,8 @@ P R O C E S S :
 Prior to modeling, we cleaned normalized, and standardized our data.  We then utilized a Python script to initialize, tran and evaluate our models. Our group performed model optimization techniques to evaluate our model's performance to be displayed within our script. Two machine learning techniques were used - Linear Regression and LSTM. 
 
 L I M I T A T I O N S : 
-stock prices are difficult to predict. There are many outside factors that can affect stock prices. Our dataset also had a limited number of features.
+
+Stock prices are difficult to predict. There are many outside factors that can affect stock prices. Our dataset also had a limited number of features.
 
 C O N C L U S I O N : 
 
