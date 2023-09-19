@@ -61,14 +61,14 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header custom-box-bg text-white text-center">
-                            <h2>ML Model Prediction Accuracy</h2>
+                            <h2>ML Models</h2>
                         </div>
                         <div class="card-body">
                             <div class="text-center"> 
                                 <label class="text-white">Select ticker to check out our LSTM Model Prediction Accuracy Charts:</label>
                             </div>
                             <div class="row justify-content-center"> 
-                                <div class="col-md-3"> 
+                                <div class="col-md-6"> 
                                     <select id="predictionsTickerSelector" class="form-control">
                                         <option value="">Select Ticker</option>
                                         <option value="AAPL">Apple Inc. (AAPL)</option>
@@ -108,29 +108,46 @@
                                             </div>
                                             <p type="text" id="predictionResult" class="form-control text-left text-muted" >Predicted Closing Price</p>
                                         </div>
+                                    
                                     </div>
                                 </div>
-                            </div>                                  
-                        </div>   
+                            </div>  
+                            <div class="col-md-12 text-center" >
+                                <button id="okButton" class="btn btn-primary" onclick="window.location.href = 'http://make-everything-ok.com/';">Lost Money Investing?</button>
+                            </div>                                
+                        </div> 
+                          
                     </div>
                 </div>
             </div>
         </div>
         <div id="tableau-embed" class="tab-pane fade active">
             <div class="row">
-                <div class="col-md-6 p-0">
-                    <div class='tableauPlaceholder' id='viz1694742239576' style='position: relative'><noscript><a href='#'><img alt='Average Company Highs &amp; Lows ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;TM&#47;TMG2BZFQ4&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='path' value='shared&#47;TMG2BZFQ4' /> <param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;TM&#47;TMG2BZFQ4&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /><param name='filter' value='publish=yes' /></object></div>
-                    <script type='text/javascript'>var divElement = document.getElementById('viz1694742239576');var vizElement = divElement.getElementsByTagName('object')[0];vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';var scriptElement = document.createElement('script');scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';vizElement.parentNode.insertBefore(scriptElement, vizElement);</script>
-                </div>
-                <div class="col-md-6 p-0">
-                    <div class='tableauPlaceholder' id='viz1694742361431' style='position: relative'><noscript><a href='#'><img alt='Average Company Highs &amp; Lows with Predictions ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;FinalProjectAB&#47;CompanyDate-AvgHighLow2&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='FinalProjectAB&#47;CompanyDate-AvgHighLow2' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;FinalProjectAB&#47;CompanyDate-AvgHighLow2&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /><param name='filter' value='publish=yes' /></object></div>
-                    <script type='text/javascript'>var divElement = document.getElementById('viz1694742361431');var vizElement = divElement.getElementsByTagName('object')[0];vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';var scriptElement = document.createElement('script');scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';vizElement.parentNode.insertBefore(scriptElement, vizElement);</script>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 p-0">
-                    <div class='tableauPlaceholder' id='viz1694742648407' style='position: relative'><noscript><a href='#'><img alt='Volume by Company 2013-2023 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;FinalProjectAB&#47;AppleAverageClose&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='FinalProjectAB&#47;AppleAverageClose' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;FinalProjectAB&#47;AppleAverageClose&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /><param name='filter' value='publish=yes' /></object></div>
-                    <script type='text/javascript'>var divElement = document.getElementById('viz1694742648407');var vizElement = divElement.getElementsByTagName('object')[0];vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';var scriptElement = document.createElement('script');scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';vizElement.parentNode.insertBefore(scriptElement, vizElement);</script>
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header custom-box-bg text-white text-center">
+                            <h2>Historic Data that feeds into out ML Models</h2>
+                        </div>
+                        <div class="row">
+                                <div class="col-md-6">
+                                    <div class='tableauPlaceholder' id='viz1694742239576' style='position: relative'><noscript><a href='#'><img alt='Average Company Highs &amp; Lows ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;TM&#47;TMG2BZFQ4&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='path' value='shared&#47;TMG2BZFQ4' /> <param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;TM&#47;TMG2BZFQ4&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /><param name='filter' value='publish=yes' /></object></div>
+                                    <script type='text/javascript'>var divElement = document.getElementById('viz1694742239576');var vizElement = divElement.getElementsByTagName('object')[0];vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*1)+'px';var scriptElement = document.createElement('script');scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';vizElement.parentNode.insertBefore(scriptElement, vizElement);</script>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class='tableauPlaceholder' id='viz1694742361431' style='position: relative'><noscript><a href='#'><img alt='Average Company Highs &amp; Lows with Predictions ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;FinalProjectAB&#47;CompanyDate-AvgHighLow2&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='FinalProjectAB&#47;CompanyDate-AvgHighLow2' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;FinalProjectAB&#47;CompanyDate-AvgHighLow2&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /><param name='filter' value='publish=yes' /></object></div>
+                                    <script type='text/javascript'>var divElement = document.getElementById('viz1694742361431');var vizElement = divElement.getElementsByTagName('object')[0];vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*1)+'px';var scriptElement = document.createElement('script');scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';vizElement.parentNode.insertBefore(scriptElement, vizElement);</script>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class='tableauPlaceholder' id='viz1695099800054' style='position: relative'><noscript><a href='#'><img alt='Historical Stock Prices ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Hi&#47;HistoricalStockPrices_16944907236460&#47;hist_price&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='HistoricalStockPrices_16944907236460&#47;hist_price' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Hi&#47;HistoricalStockPrices_16944907236460&#47;hist_price&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /><param name='filter' value='publish=yes' /></object></div>                
+                                    <script type='text/javascript'>var divElement = document.getElementById('viz1695099800054');var vizElement = divElement.getElementsByTagName('object')[0];vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.50)+'px';var scriptElement = document.createElement('script');scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';vizElement.parentNode.insertBefore(scriptElement, vizElement);</script>
+                                    <div class='tableauPlaceholder' id='viz1694742648407' style='position: relative'><noscript><a href='#'><img alt='Volume by Company 2013-2023 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;FinalProjectAB&#47;AppleAverageClose&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='FinalProjectAB&#47;AppleAverageClose' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;FinalProjectAB&#47;AppleAverageClose&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /><param name='filter' value='publish=yes' /></object></div>
+                                    <script type='text/javascript'>var divElement = document.getElementById('viz1694742648407');var vizElement = divElement.getElementsByTagName('object')[0];vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.5)+'px';var scriptElement = document.createElement('script');scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';vizElement.parentNode.insertBefore(scriptElement, vizElement);</script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
