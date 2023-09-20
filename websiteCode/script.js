@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // fetch and display stock data
     function fetchStockData(selectedTicker) {
-        const apiKey = '7IWYGE8ECV7Q03TY'; // Replace with your actual API key
+        const apiKey = '7IWYGE8ECV7Q03TY'; 
         const stockApiUrl = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${selectedTicker}&apikey=${apiKey}`;
 
         stockDataContent.innerHTML = '<div class="text-center">Loading stock data...</div>';
@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Function to fetch and display candlestick chart
     function fetchCandlestickChart(selectedTicker) {
-        const apiKey = '7IWYGE8ECV7Q03TY'; // Replace with your actual API key
+        const apiKey = '7IWYGE8ECV7Q03TY'; 
         const intradayApiUrl = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${selectedTicker}&interval=5min&apikey=${apiKey}`;
 
         fetch(intradayApiUrl)
@@ -210,7 +210,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const selectedTicker = this.value;
         fetchNews(selectedTicker);
         fetchStockData(selectedTicker);
-        fetchCandlestickChart(selectedTicker); // Fetch and display the candlestick chart
+        fetchCandlestickChart(selectedTicker); 
     });
 
     // Listener for predictionsTickerSelector
