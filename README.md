@@ -4,7 +4,7 @@ Alex Nguyen, Alison Barker, Emily Medill, Charlote Van Dyck, Mike Monary, Joseph
 
 Website with Stock Data, Historical Analysis and Predictions
 
-
+Our website: https://finalprojg2.z5.web.core.windows.net/ 
 
 O B J E C T I V E S :
 
